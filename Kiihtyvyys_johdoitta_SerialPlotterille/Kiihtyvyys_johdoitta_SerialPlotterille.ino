@@ -85,7 +85,7 @@ void loop() {
  ay = 0.1464 * y - 49.377; // ay kiihtyvyytenä 
  az = 0.1464 * z - 50.548;
 
- Serial.print(aika); // poistetaan jotta plotteri ei sekoa
+ //Serial.print(aika); // poistetaan jotta plotteri ei sekoa
  Serial.print(" ");
  Serial.print(ax);
  Serial.print(" ");
