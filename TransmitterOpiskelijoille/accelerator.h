@@ -3,6 +3,10 @@
 
 #include "messaging.h"
 
+const int xPin   = A1;   // x-kanavan
+const int yPin   = A2;   // y-kanava
+const int zPin   = A3;   // z-kanava
+
 struct Measurement
 {
   int x;
@@ -12,15 +16,15 @@ struct Measurement
 
 class Accelerator
 {
-public:
-  Accelerator();
-  ~Accelerator();
-  void makeMeasurement();
-  Measurement getMeasurement();
+  public:
+    Accelerator();
+    ~Accelerator();
+    void makeMeasurement();
+    void printMeasurement();
+    Measurement getMeasurement();
 
-private:
-  Measurement m;
- 
+  private:
+    Measurement m;
 };
 
 #endif // ACCELERATOR_H

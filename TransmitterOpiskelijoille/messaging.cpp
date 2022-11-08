@@ -32,7 +32,7 @@ bool Messaging::sendMessage(uint8_t id, uint8_t flags)
      }
      driver.setModeTx();
      uint8_t to = RECEIVER_ADDRESS;
-     uint8_t from = Tänne sinun oma osoitteesi  //TRANSMITTER_ADDRESS;
+     uint8_t from = TRANSMITTER_ADDRESS;  //TRANSMITTER_ADDRESS
      
      pmanager->setHeaderTo(to);
      pmanager->setHeaderFrom(from);
