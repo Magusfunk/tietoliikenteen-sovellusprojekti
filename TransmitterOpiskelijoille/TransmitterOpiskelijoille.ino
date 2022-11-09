@@ -25,7 +25,17 @@ void loop()
 {
   Accelerator Aobject;
   Messaging Mobject;
-  Serial.println("Give number how many measurements");
+  uint8_t flags = 255;
+  Serial.println("Give rotation?");
+  while (flags == 255)
+  {
+    if (Serial.available() > 0)
+    {
+      flags = Serial.parseInt();
+    }
+  }
+
+  Serial.println("Give number how many measurements?");
   int NumberOfMeasurements = 0;
   while (NumberOfMeasurements == 0)
   {
@@ -41,7 +51,6 @@ void loop()
     Measurement m = Aobject.getMeasurement();
     Aobject.printMeasurement();
     uint8_t id = M;
-    uint8_t flags = 0xff;
     Mobject.createMessage(m);
     if (Mobject.sendMessage(id, flags))
     {
@@ -58,7 +67,7 @@ void loop()
     else
     {
       Serial.println("Reciver did not get the message. Need to resend it");
-      M--;  // Let's just revind for loop
+      //M--;  // Let's just revind for loop
     }
   } // end of for
 }   // end of loop

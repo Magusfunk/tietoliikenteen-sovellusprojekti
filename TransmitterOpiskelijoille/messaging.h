@@ -21,16 +21,14 @@ public:
   bool sendMessage(uint8_t id, uint8_t flags);
   bool receiveACK();
 
-
 private:
   const uint8_t TRANSMITTER_ADDRESS = 60;
   const uint8_t RECEIVER_ADDRESS = 254;
   uint8_t buf[RH_ASK_MAX_MESSAGE_LEN];
   uint8_t data[RH_ASK_MAX_MESSAGE_LEN];
-  uint8_t messageLength = 0;
+  uint8_t messageLength = 6;
   RH_ASK driver;
   RHReliableDatagram * pmanager;
-  
-};
+ };
 
 #endif // MESSAGING_H
