@@ -1,6 +1,16 @@
 #include "messaging.h"
 #include "accelerator.h"
 
+/*
+ * 0 z +
+ * 1 z -
+ * 2 x +
+ * 3 x -
+ * 4 y +
+ * 5 y -
+ * 
+ */
+
 // Määritellään kytkentänavat kiihtyvyysanturille ja muuttujat:
 const int VccPin2 = A0;  // Käyttöjännite
 const int GNDPin2 = A4;  // laitteen maa-napa
@@ -67,7 +77,7 @@ void loop()
     else
     {
       Serial.println("Reciver did not get the message. Need to resend it");
-      //M--;  // Let's just revind for loop
+      M--;  // Let's just revind for loop
     }
   } // end of for
 }   // end of loop
