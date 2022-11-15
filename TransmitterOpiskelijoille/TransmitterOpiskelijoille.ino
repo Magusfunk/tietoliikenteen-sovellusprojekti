@@ -61,6 +61,10 @@ void loop()
     Measurement m = Aobject.getMeasurement();
     Aobject.printMeasurement();
     uint8_t id = M;
+    Serial.print("M arvo:");
+    Serial.println(M);
+    Serial.print("Flag arvo:");
+    Serial.println(flags);
     Mobject.createMessage(m);
     if (Mobject.sendMessage(id, flags))
     {
