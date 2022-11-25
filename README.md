@@ -8,3 +8,6 @@ Tietokantaan tallentuvaan dataan on TCP-sokettirajapinta ja HTTP API. Kerättyä
 
 ![image](https://user-images.githubusercontent.com/99818602/199468581-c733259f-269f-45a9-8278-99d370cc0fc4.png)
 
+## Luokkittelematon data K-Means algoritmille:
+
+![image](https://user-images.githubusercontent.com/99818602/203951779-796e9e43-5aba-46d2-bcbe-12dce3cd20e2.png)
