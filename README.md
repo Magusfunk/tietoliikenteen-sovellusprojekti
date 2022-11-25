@@ -10,4 +10,6 @@ Tietokantaan tallentuvaan dataan on TCP-sokettirajapinta ja HTTP API. Kerättyä
 
 ## Luokkittelematon data K-Means algoritmille:
 
+Visualisoitu MatPlotLib:llä
+
 ![image](https://user-images.githubusercontent.com/99818602/203951779-796e9e43-5aba-46d2-bcbe-12dce3cd20e2.png)
