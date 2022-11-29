@@ -13,7 +13,10 @@ class dataHandler:
         
     def handleData(s): 
         numberOfRows = int(len(s.data) / 3)       
-        dataMatrix = np.zeros((numberOfRows,3))  
+        dataMatrix = np.zeros((numberOfRows,3)) 
+        s.dataX = s.data[0::3]
+        s.dataY = s.data[1::3]
+        s.dataZ = s.data[2::3] 
         dataMatrix[:,0] = s.data[0::3]
         dataMatrix[:,1] = s.data[1::3]
         dataMatrix[:,2] = s.data[2::3]
@@ -38,13 +41,21 @@ class kMeans:
         print("Node matrix len",len(s.nodeMatrix))
         
     def vectorLength(s):
-        distance = np.zeros()
+        distance = np.zeros(len(s.nodeMatrix))
+        avg = np.zeros((len(s.nodeMatrix),4))
+        
         for x in range(len(s.data)):
-            print("Rivi :", x)
+            # print("Rivi :", x)
             for y in range(len(s.nodeMatrix)):
-                print("Node :", y)  
-                distance = np.abs(np.sqrt(np.power((s.data[x,0] - s.nodeMatrix[y,0]),2) + np.power((s.data[x,1] - s.nodeMatrix[y,1]),2) + np.power((s.data[x,2] - s.nodeMatrix[y,2]),2)))
-                print(distance)
+                # print("Node :", y)  
+                distance[y] = np.abs(np.sqrt(np.power((s.data[x,0] - s.nodeMatrix[y,0]),2)+ np.power((s.data[x,1] - s.nodeMatrix[y,1]),2) + np.power((s.data[x,2] - s.nodeMatrix[y,2]),2)))
+            i = np.argmin(distance)
+            avg[i,3] += 1
+            avg[i,0:3] += s.data[x,0:3] 
+        for i in range(len(avg)):
+            for j in range(4):
+                avg[i] = avg[i,:] / avg[i,3]     
+        print(avg)  
             
                 
 if __name__ == "__main__":
@@ -52,3 +63,4 @@ if __name__ == "__main__":
     kMeans = kMeans(df.handleData())
     kMeans.randomNode()
     kMeans.vectorLength()
+    # df.dataShow()
