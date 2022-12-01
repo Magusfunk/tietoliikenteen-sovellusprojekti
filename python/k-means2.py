@@ -17,43 +17,59 @@ class kMeans:
         return randomPointMatrix
     
     def calculateNodeWinner(s, kmeansMatrix):
-        distance = np.zeros(s.kMeansCount)
-        countWinner = np.zeros(s.kMeansCount)
-        
+        #Distanceen lasketaan mittausdatan pisteiden etäisyys kMeans pisteisiin
+        #Output matriisin jokainen rivi vastaa yhtä pistettä ja sarakkeille 1-3 lasketaan summa voitettujen pisteiden koordinaateista ja sarakkeelle 4 lasketaan
+        # voittojen määrä
+        distance = np.zeros(s.kMeansCount)        
+        output = np.zeros((s.kMeansCount,4))        
         for riviDatassa in range(len(s.measureData)):
             for point in range(len(kmeansMatrix)):
                 distance[point] = np.abs(np.sqrt(np.power((s.measureData[riviDatassa,0] - kmeansMatrix[point,0]),2) 
-                                                     + np.power((s.measureData[riviDatassa,1] - kmeansMatrix[point,1]),2)
-                                                     + np.power((s.measureData[riviDatassa,2] - kmeansMatrix[point,2]),2)))   
+                                               + np.power((s.measureData[riviDatassa,1] - kmeansMatrix[point,1]),2)
+                                               + np.power((s.measureData[riviDatassa,2] - kmeansMatrix[point,2]),2)))   
             index = np.argmin(distance)
-            countWinner[index] += 1
-        return countWinner
+            output[index,3] += 1
+            output[index,0:3] += s.measureData[riviDatassa]
+        return output
         
         
     def calculateAverage(s,input):
+        #Täällä lasketaan uusi keskipiste syötetystä datasta eli jaetaan sarakkeiden 1-3 arvot sarakkeen 4 arvolla
         output = np.zeros((s.kMeansCount,4))
-        ic(input)
-        
+        for rivi in range(len(input)):
+            output[rivi,0:3] = input[rivi,0:3] / input[rivi,3]
+        return output   
                 
-    def dataShow(s):
+    def dataShow(s,input):
         fig = plt.figure()
         ax = fig.add_subplot(projection='3d')
         ax.scatter(s.measureData[:,0], s.measureData[:,1], s.measureData[:,2])
-        # ax.scatter(s.outputMatrix[:,0], s.outputMatrix[:,1], s.outputMatrix[:,2], color="red", marker="*")
+        ax.scatter(input[:,0], input[:,1], input[:,2], color="red", marker="*")
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
         ax.set_zlabel('Z Label')
         plt.show()   
             
 if __name__ == "__main__":
+    
     kMeans = kMeans()
-    kMeans.loadData("python\putty.log")
+    kMeans.loadData("python\putty.log")      
+    #Arvotaan ensimmäiset pisteen randomilla ja jos joku piste ei saa voittoja arvotaan kaikki uudestaan
     while True:
-        countWinner = kMeans.calculateNodeWinner(kMeans.randomizePoints())
-        ic(countWinner)
-        if not np.min(countWinner) == 0:
+        winner = kMeans.calculateNodeWinner(kMeans.randomizePoints())
+        if not np.min(winner[:,3]) == 0:
+            print("Luuppi katkaistu")
             break
-    kMeans.calculateAverage(countWinner)
+    oldCenterPoints = kMeans.calculateAverage(winner)
     
-    
-    # kMeans.dataShow()                    
+    #Pyöräytetään laskenta uudestaan läpi 10 kertaa tai niin kauan, että keskipisteiden arvo ei enää muutu
+    #Käyttäen aina syötteenä vanhaa keskipistettä ja tuloksena saada uudet keskipisteet        
+    for i in range(10):        
+        batchWinner = kMeans.calculateNodeWinner(oldCenterPoints)
+        newCenterPoints = kMeans.calculateAverage(batchWinner)
+        ic(np.average(oldCenterPoints[:,0:3] - newCenterPoints[:,0:3]))
+        if np.average(oldCenterPoints[:,0:3] - newCenterPoints[:,0:3]) == 0:
+            break
+        oldCenterPoints = newCenterPoints   
+        
+    kMeans.dataShow(oldCenterPoints)                    
