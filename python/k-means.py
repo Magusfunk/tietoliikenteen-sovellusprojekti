@@ -71,5 +71,5 @@ class kMeans:
                 
 if __name__ == "__main__":
     kMeans = kMeans("python\putty.log")
-    kMeans.kMeans()
+    kMeans.load
     kMeans.dataShow()
