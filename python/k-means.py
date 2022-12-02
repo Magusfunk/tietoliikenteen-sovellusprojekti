@@ -77,7 +77,7 @@ if __name__ == "__main__":
     visualizationMatriz = oldCenterPoints[:,0:3,np.newaxis]    
         
     #Pyöräytetään laskenta uudestaan läpi 10 kertaa tai niin kauan, että keskipisteiden arvo ei enää muutu
-    #Käyttäen aina syötteenä vanhaa keskipistettä ja tuloksena saada uudet keskipisteet        
+    #Käyttäen aina syötteenä vanhaa keskipistettä ja tuloksena saada uudet keskipisteet.
     for batch in range(rows): 
         batchWinner = kMeans.calculateNodeWinner(oldCenterPoints)
         newCenterPoints = kMeans.calculateAverage(batchWinner)
