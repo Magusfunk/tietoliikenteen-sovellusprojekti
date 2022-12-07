@@ -1,14 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from icecream import ic
-from pandas import read_csv
 
 class kMeans:
     def __init__(s,kMeans):
         s.kMeansCount = kMeans               
 
     def loadData(s,file):
-        rawData = np.genfromtxt(file,delimiter=",")
+        ic(file)
+        rawData = np.genfromtxt(file,delimiter=";")
+        ic(rawData)
         rawData = rawData[:,5:8]
         s.min,s.max = np.min(rawData),np.max(rawData)
         # s.numberOfRows = 10000                                      #Randomdata input
@@ -44,20 +45,35 @@ class kMeans:
         output = np.zeros((s.kMeansCount,4))
         for rivi in range(len(input)):
             output[rivi,0:3] = input[rivi,0:3] / input[rivi,3]
-        return output   
+        return output
                 
     def dataShow(s,input):
         fig = plt.figure()
         ax = fig.add_subplot(projection='3d')
         ax.scatter(s.measureData[:,0], s.measureData[:,1], s.measureData[:,2])
         ax.scatter(input[:,0,0], input[:,1,0], input[:,2,0], color="red", marker="*")
-        ax.scatter(input[:,0,-1], input[:,1,-1], input[:,2,-1], color="green", marker="*")
+        ax.scatter(input[:,0,-1], input[:,1,-1], input[:,2,-1], color="red", marker="*")
         for node in range(len(input)):
             ax.plot(input[node,0,:], input[node,1,:], input[node,2,:], color="black")
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
         ax.set_zlabel('Z Label')
-        plt.show()   
+        plt.show()  
+        
+    def arduinoHeaderFileGenerator(s,input):
+        #Arduino Header tiedoston kirjoitus
+        input = (np.rint(input)).astype(int)
+        ic(input[:,:,-1])
+        headerOutput = np.array2string(input.flatten(),precision=1,separator=",")
+    
+        header = ["#ifndef KESKIPISTE_H\n", 
+                  "#define KESKIPISTE_H\n\n",
+                  f"int keskipisteet[{kMeanCount}][3] = ",
+                  "{",headerOutput[1:-1],"};"]
+
+        with open('keskipiste.h', 'w') as file:
+                file.writelines(header)
+        file.close         
             
 if __name__ == "__main__":
     kMeanCount = 6
@@ -70,7 +86,7 @@ if __name__ == "__main__":
         randomCount += 1
         ic(randomCount)
         winner = kMeans.calculateNodeWinner(kMeans.randomizePoints())
-        if np.min(winner[:,3]) > (rows / kMeanCount) * 0.1:
+        if np.min(winner[:,3]) > (rows / kMeanCount) * 0.8:
             print("Luuppi katkaistu")
             break
     oldCenterPoints = kMeans.calculateAverage(winner)    
@@ -87,6 +103,5 @@ if __name__ == "__main__":
         visualizationMatriz = np.append(visualizationMatriz,newCenterPoints[:,0:3].reshape(kMeanCount,3,1),axis=2) 
         oldCenterPoints = newCenterPoints  
     ic(kMeans.calculateNodeWinner(oldCenterPoints))
-    ic(visualizationMatriz[:,:,-1])
-    
-    kMeans.dataShow(visualizationMatriz)          
+    # kMeans.dataShow(visualizationMatriz)
+    kMeans.arduinoHeaderFileGenerator(visualizationMatriz)          
