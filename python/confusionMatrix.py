@@ -9,9 +9,6 @@ trueValue = rawData[:,0]
 predictedValue = rawData[:,1]
 confusionMatrix = confusion_matrix(trueValue, predictedValue)
 
-
-
-
 fig, ax = plt.subplots(figsize=(7.5, 7.5))
 ax.matshow(confusionMatrix, cmap=plt.cm.Blues, alpha=0.3)
 for i in range(confusionMatrix.shape[0]):
