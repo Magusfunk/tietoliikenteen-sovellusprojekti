@@ -57,23 +57,21 @@ void loop() {
     for (int piste = 0; piste < 6; piste++) {
       distance = abs(sqrt(pow(keskipisteet[piste][0] - m.x, 2) + pow(keskipisteet[piste][1] - m.y, 2) + pow(keskipisteet[piste][2] - m.z, 2)));
       winner[piste] = distance;
-    }
-    Serial.println();
-    Serial.print("Winner: ");
+    }   
     for (int index = 0; index < 6; index++) {
-      Serial.print("<");
-      Serial.print(winner[index]);
-      Serial.print(">");
+      // Serial.print("<");
+      // Serial.print(winner[index]);
+      // Serial.print(">");
     }
-    calculatedResult = calculateWinner(winner);
-    Serial.println();
-    Serial.print("Todellinen suunta:");
+    calculatedResult = calculateWinner(winner);    
+    // Serial.print("Todellinen suunta:");
     Serial.print(trueRotation);
-    Serial.print(" Ennustettu suunta:");
+    Serial.print(",");
+    // Serial.print(" Ennustettu suunta:");
     Serial.println(calculatedResult);
     delay(1000);
   }
-  trueRotation = 7;
+  // trueRotation = 7;
 }
 
 int calculateWinner(int input[5]) {
