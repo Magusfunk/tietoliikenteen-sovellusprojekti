@@ -31,31 +31,52 @@ void setup() {
 }
 
 void loop() {
-  float distance = 0;
-  int winner[6];
-  int tulos = 0;
-  Accelerator Aobject;
-  Aobject.makeMeasurement();
-  Measurement m = Aobject.getMeasurement();  
-  for (int piste = 0; piste < 6; piste++) {    
-    distance = abs(sqrt(pow(keskipisteet[piste][0] - m.x, 2) + pow(keskipisteet[piste][1] - m.y, 2) + pow(keskipisteet[piste][2] - m.z, 2)));
-    winner[piste] = distance;    
+  int NumberOfMeasurements = 0;
+  int trueRotation = 7;
+
+  Serial.println("Give rotation?");
+  while (trueRotation == 7) {
+    if (Serial.available() > 0) {
+      trueRotation = Serial.parseInt();
+    }
   }
-  Serial.println();
-  Serial.print("Winner: ");
-  for (int index = 0; index < 6; index++) {
-    Serial.print("<");
-    Serial.print(winner[index]);
-    Serial.print(">");
+
+  Serial.println("Give number how many measurements?");
+  while (NumberOfMeasurements == 0) {
+    if (Serial.available() > 0) {
+      NumberOfMeasurements = Serial.parseInt();
+    }
   }
-  tulos = laskeVoittaja(winner);
-  Serial.println();
-  Serial.print("Voittaja:");
-  Serial.println(tulos);  
-  delay(1000);
+  for (int i = 0; i < NumberOfMeasurements; i++) {
+    float distance = 0;
+    int winner[6];
+    int calculatedResult = 0;
+    Accelerator Aobject;
+    Aobject.makeMeasurement();
+    Measurement m = Aobject.getMeasurement();
+    for (int piste = 0; piste < 6; piste++) {
+      distance = abs(sqrt(pow(keskipisteet[piste][0] - m.x, 2) + pow(keskipisteet[piste][1] - m.y, 2) + pow(keskipisteet[piste][2] - m.z, 2)));
+      winner[piste] = distance;
+    }
+    Serial.println();
+    Serial.print("Winner: ");
+    for (int index = 0; index < 6; index++) {
+      Serial.print("<");
+      Serial.print(winner[index]);
+      Serial.print(">");
+    }
+    calculatedResult = calculateWinner(winner);
+    Serial.println();
+    Serial.print("Todellinen suunta:");
+    Serial.print(trueRotation);
+    Serial.print(" Ennustettu suunta:");
+    Serial.println(calculatedResult);
+    delay(1000);
+  }
+  trueRotation = 7;
 }
 
-int laskeVoittaja(int input[5]) {
+int calculateWinner(int input[5]) {
   int minVal = 200;
   int minPlace = 7;
 
