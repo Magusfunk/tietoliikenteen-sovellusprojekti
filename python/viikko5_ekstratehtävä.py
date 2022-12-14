@@ -1,9 +1,24 @@
-import pandas as pd
 import numpy as np
 from icecream import ic
 from tensorflow import keras
 from tensorflow.keras import layers
 
+
+def headerFileGenerator(input):
+    inputs = 3
+    outputs = 6
+    weights = np.array2string(input[0].flatten(),separator=",")
+    biases = np.array2string(input[1].flatten(),separator=",")
+    
+    data = [f"int weights[{inputs}][{outputs}] = ",
+            "{",weights[1:-1],"};\n\n",
+            f"int biases[{outputs}] = ",
+            "{",biases[1:-1],"};\n\n"]
+
+    with open('weightsBiases.h', 'w') as file:
+            file.writelines(data)
+    file.close  
+    
 num_classes = 6
 
 file = "python\export.csv"
@@ -23,15 +38,15 @@ coordinates_train,coordinates_test,label_train,label_test = train_test_split(coo
 model = keras.Sequential(
     [
     keras.Input(shape=input_shape),
-    layers.Dense(num_classes,activation="relu",name="hiddenLayer"),
+    # layers.Dense(num_classes,activation="relu",name="hiddenLayer"),
     layers.Dense(num_classes,activation="softmax",name="OutputLayer"),
     ]
 )
 
 #<------------------------->
 
-batch = 10
-epochs = 100
+batch = 38
+epochs = 300
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 model.fit(coordinates_train,label_train,batch_size=batch,epochs=epochs)
 
@@ -42,23 +57,13 @@ print("Test accuracy:", score[1])
 #<------------------------->
 
 coordinates_predict = model.predict(coordinates_train)
-#for row in range(len(coordinates_predict)):
-#  print(np.argmax(coordinates_predict[row,:]),np.argmax(label_train[row]))
 
 weights = model.get_weights()
-# for row in weights:
-#     ic(row)
-    
-        
-biases = [var for var in model.variables if "bias" in var.name]
-# weights = [var for var in model.variables if "weight" in var.name]
-ic(biases,weights)
+ic(weights[0])   
+ic(weights[1])  
+     
+with open('test.npy', 'wb') as f:
+    np.save(f, weights[0])
+    np.save(f, weights[1])
 
-with open('./weights.txt', mode='w') as f:
-    f.write(str(weights))
-    f.close
-    
-with open('./biases.txt', mode='w') as f:
-    f.write(str(biases))
-    f.close
-    
+headerFileGenerator(weights)
