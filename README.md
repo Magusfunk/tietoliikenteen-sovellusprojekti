@@ -25,7 +25,20 @@ Kuvassa näkyy sinisellä mittausdatan pisteet ja punaiset tähdet edustavat alg
 
 Oheissa kuvassa näkyy algoritmin keskipisteiden liikkuminen algoritmin käydessä iterointeja läpi. Koska alkuperäinen data on niin pieni ja keskipisteet löytyvät heti, kyseistä liikkummista ei tapahdu kuin vähäisessä määrin, joten kyseistä kuvaa varten generoitiin 10000 riviä satunnaisdataa. Punainen piste edustaa arvottua lähtöpistetä ja vihreä piste laskettua loppupistettä.
 
-###K-means implementointi Arduinolle
+### K-means mallin implementointi Arduinolle
 
-Seuraavassa vaihessa Pythonin K-means algoritmin antamat keskipisteet kirjoitettiin C++ yhteensopivaan muotoon ja toteutettiin malli Arduinolla. Malli toimi erinomaisesti ja osasi antaa vastauksena aina oikean kiihtyvyysanturin suunnan. 
+Seuraavassa vaihessa Pythonin K-means algoritmin antamat keskipisteet kirjoitettiin C++ yhteensopivaan muotoon ja toteutettiin malli Arduinolla. Malli toimi erinomaisesti ja osasi antaa vastauksena aina oikean kiihtyvyysanturin suunnan.
+
+![image](https://user-images.githubusercontent.com/99818602/207831386-afe50f36-7329-4d54-a35a-a483319b6beb.png)
+
+Kuvassa serial monitorin tulostamassa datassa ensimmäinen numero edustaa anturin oikeaa asentoa joka on käsin määritetty ja toinen arvo mallin antamaa ennustettua arvoa.
+
+![image](https://user-images.githubusercontent.com/99818602/207832160-968f4622-442c-4f17-a1b8-b181ac9c8af5.png)
+
+Lopputulokset kirjattiin tiedostoon ja tästä datasta laskettiin vielä Pythonin avulla confusion matrix, joka on oiva apu tulosten tarkasteluun.
+
+### Loppusanat
+
+Kaiken kaikkiaan projekti oli erittäin mielenkiintoinen ja monivivahteinen. Paljon asiaa opittavaksi ja varsinkin Pythonilla K-means algoritimin koodaaminen oli erittäinen mielenkiintoinen tehtävä, joka imaisi mukaansa.
+
 
