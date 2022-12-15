@@ -39,4 +39,4 @@ Lopputulokset kirjattiin tiedostoon ja tästä datasta laskettiin vielä Pythoni
 
 ### Loppusanat
 
-Kaiken kaikkiaan projekti oli erittäin mielenkiintoinen ja monivivahteinen. Paljon asiaa opittavaksi ja varsinkin Pythonilla K-means algoritimin koodaaminen oli erittäinen mielenkiintoinen tehtävä, joka imaisi mukaansa.
+Kaiken kaikkiaan projekti oli erittäin mielenkiintoinen ja monivivahteinen. Paljon asiaa opittavaksi ja varsinkin Pythonilla K-means algoritimin koodaaminen oli todella mielenkiintoinen tehtävä, joka imaisi mukaansa.
