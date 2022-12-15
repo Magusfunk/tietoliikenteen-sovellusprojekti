@@ -40,20 +40,3 @@ Lopputulokset kirjattiin tiedostoon ja tästä datasta laskettiin vielä Pythoni
 ### Loppusanat
 
 Kaiken kaikkiaan projekti oli erittäin mielenkiintoinen ja monivivahteinen. Paljon asiaa opittavaksi ja varsinkin Pythonilla K-means algoritimin koodaaminen oli erittäinen mielenkiintoinen tehtävä, joka imaisi mukaansa.
-
-
-## Luokkittelematon data K-Means algoritmille:
-
-Visualisoitu MatPlotLib:llä
-
-![image](https://user-images.githubusercontent.com/99818602/203951779-796e9e43-5aba-46d2-bcbe-12dce3cd20e2.png)
-
-
-Seuraavassa kuvassa on visualisoitu keskipisteiden uudelleenlaskenta 10k mittauspisteen randomoidulla datalla.
-
-![image](https://user-images.githubusercontent.com/99818602/205254480-ed639436-7760-42de-9fff-95caaed848e5.png)
-
-Kyseistä siirtymää tapahtuu hyvin minimaalisesti projektin datalle sen pienuuen vuoksi. Arvotut pisteet ovat lähtökohtaisesti jo hyvin lähelle oikeita paikkoja.
-Ohessa kuva varsinaisen datan yhteydessä tapahtuneesta keskipisteen uudelleenlaskennasta.
-
-![image](https://user-images.githubusercontent.com/99818602/205258427-fd7bc700-077f-40b2-a837-97a55b6fef20.png)
