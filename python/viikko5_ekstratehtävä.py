@@ -24,8 +24,8 @@ def headerFileGenerator(inputData):
 num_classes = 6
 file = "python\export.csv"
 rawData = np.genfromtxt(file,delimiter=",")
-coordinates = rawData[:,5:8].astype(np.int)
-label = rawData[:,9].reshape((len(rawData),1)).astype(np.int)
+coordinates = rawData[:,5:8]
+label = rawData[:,9].reshape((len(rawData),1))
 label = keras.utils.to_categorical(label,num_classes)
 
 #<------------------------->
@@ -58,7 +58,7 @@ print("Test accuracy:", score[1])
 coordinates_predict = model.predict(coordinates_train)
 count = 0
 for i in range(len(coordinates_predict)):
-    print("Predict:", coordinates_predict[i],np.argmax(label_train[i]))
+    print("Predict:", np.argmax(coordinates_predict[i]),np.argmax(label_train[i]))
     if np.argmax(coordinates_predict[i]) == np.argmax(label_train[i]):
         count += 1
 print("Tarkkuus prosentteinta: ", (count / len(coordinates_predict)) * 100,"%")

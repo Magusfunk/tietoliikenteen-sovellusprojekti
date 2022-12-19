@@ -30,45 +30,44 @@ void setup() {
   delayMicroseconds(2);
 }
 
-void loop() {  
+void loop() {
   int x = 0;
   int y = 1;
   int z = 2;
   float neuralResult[6];
   Accelerator Aobject;
-  Aobject.makeMeasurement();  
+  Aobject.makeMeasurement();
   Measurement m = Aobject.getMeasurement();
 
+  Serial.print("Neuroverkon tulos ennen aktivointia: ");
   for (int outputNode = 0; outputNode < 6; outputNode++) {
     neuralResult[outputNode] = m.x * weights[x][outputNode] + 
                                m.y * weights[y][outputNode] + 
                                m.z * weights[z][outputNode] + 
                                biases[outputNode];
-  }  
-  float testi[6] = {1,2,3,4,5,6};
-  activation(neuralResult);
-  for (int e = 0; e < 6; e++) {    
     Serial.print("<");
-    Serial.print(neuralResult[e], 9);
-    Serial.print(">");   
-  }   
+    Serial.print(neuralResult[outputNode], 9);
+    Serial.print(">");
+  }
+  float testi[6] = { 1, 2, 3, 4, 5, 6 };
+  activation(neuralResult);
+  for (int e = 0; e < 6; e++) {
+  }
   Serial.println("");
 }
 
-void activation(float* x) {  
+void activation(float* x) {
   float exponented[6];
   float euler = 2.718281828;
-  float sum = 0;  
+  float sum = 0;
+  //Eksponenttiin korotus ja summaus
   for (int s = 0; s < 6; s++) {
     sum = sum + pow(euler, x[s]);
   }
-  Serial.println("");
+
   for (int i = 0; i < 6; i++) {
     x[i] = pow(euler, x[i]) / sum;
-    // Serial.print("<");
-    // Serial.print(x[i], 9);
-    // Serial.print(">");        
-  }  
+  }
 }
 
 int calculateWinner(int input[5]) {
