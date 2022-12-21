@@ -24,7 +24,8 @@ def headerFileGenerator(inputData):
 num_classes = 6
 file = "python\export.csv"
 rawData = np.genfromtxt(file,delimiter=",")
-coordinates = rawData[:,5:8]
+coordinates = rawData[:,5:8] / 100
+ic(coordinates)
 label = rawData[:,9].reshape((len(rawData),1))
 label = keras.utils.to_categorical(label,num_classes)
 

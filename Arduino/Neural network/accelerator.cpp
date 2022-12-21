@@ -14,7 +14,7 @@ Accelerator::~Accelerator()
 
 void Accelerator::makeMeasurement()
 {
-  m = {analogRead(xPin), analogRead(yPin), analogRead(zPin)};
+  m = {analogRead(xPin) / 100, analogRead(yPin) / 100, analogRead(zPin) / 100};
 }
 void Accelerator::printMeasurement()
 {

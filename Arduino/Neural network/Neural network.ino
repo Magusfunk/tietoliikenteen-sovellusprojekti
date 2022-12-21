@@ -36,24 +36,23 @@ void loop() {
   int z = 2;
   float neuralResult[6];
   Accelerator Aobject;
-  Aobject.makeMeasurement();
+  Aobject.makeMeasurement();  
   Measurement m = Aobject.getMeasurement();
-
-  Serial.print("Neuroverkon tulos ennen aktivointia: ");
   for (int outputNode = 0; outputNode < 6; outputNode++) {
     neuralResult[outputNode] = m.x * weights[x][outputNode] + 
                                m.y * weights[y][outputNode] + 
                                m.z * weights[z][outputNode] + 
                                biases[outputNode];
-    Serial.print("<");
-    Serial.print(neuralResult[outputNode], 9);
-    Serial.print(">");
+    // Serial.print("<");
+    // Serial.print(neuralResult[outputNode], 9);
+    // Serial.print(">");
   }
   float testi[6] = { 1, 2, 3, 4, 5, 6 };
-  activation(neuralResult);
-  for (int e = 0; e < 6; e++) {
-  }
+  activation(neuralResult);  
+  Serial.print("Neuroverkon antama suunta: ");
+  Serial.print(calculateWinner(neuralResult));
   Serial.println("");
+  delay(500);
 }
 
 void activation(float* x) {
@@ -66,20 +65,18 @@ void activation(float* x) {
   }
 
   for (int i = 0; i < 6; i++) {
-    x[i] = pow(euler, x[i]) / sum;
+    x[i] = pow(euler, x[i]) / sum;   
   }
 }
 
-int calculateWinner(int input[5]) {
-  int minVal = 200;
-  int minPlace = 7;
-  float output;
-
+int calculateWinner(float* input) {
+  float maxVal = 0;
+  int maxPlace = 0;
   for (int index = 0; index < 6; index++) {
-    if (input[index] < minVal) {
-      minVal = input[index];
-      minPlace = index;
+    if (input[index] > maxVal) {
+      maxVal = input[index];
+      maxPlace = index;
     }
   }
-  return output;
+  return maxPlace;
 }
